@@ -85,7 +85,7 @@ app.get('/api/UserList', (req, res)  => {
 app.post('/api/Login', (req, res)  => {
     dboperations.WgLogin(req.body.UserID,req.body.Password).then(result => {
         if (result) {
-            res.json('Sucess');
+            res.json(result[0]);
 		}	
         else {
             res.status(404).json('Invalid User');
