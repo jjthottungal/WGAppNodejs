@@ -1,9 +1,9 @@
 //Package Declaration
-const { poolPromise,sql } = require('./dbconfig');
+const { poolPromise, sql } = require('./dbconfig');
 
 
-sql.valueHandler.set(sql.TYPES.Float, (value) => value*1.0);
-sql.valueHandler.set(sql.TYPES.Int, (value) => value*1.0);
+sql.valueHandler.set(sql.TYPES.Float, (value) => value * 1.0);
+sql.valueHandler.set(sql.TYPES.Int, (value) => value * 1.0);
 
 
 //Cheetukali Summary
@@ -11,12 +11,12 @@ async function cheetukaliSummary() {
     try {
         let pool = await poolPromise;
         let result = await pool.request()
-        .execute('WG_CheetukaliList_Summary');
-        
+            .execute('WG_CheetukaliList_Summary');
+
         if (result)
             return result.recordsets;
         else
-            return null    
+            return null
     }
     catch (err) {
         return err.message;
@@ -28,12 +28,12 @@ async function cheetukaliFamilySummary() {
     try {
         let pool = await poolPromise;
         let result = await pool.request()
-        .execute('WG_CheetukaliList_Family_Summary');
-        
+            .execute('WG_CheetukaliList_Family_Summary');
+
         if (result)
             return result.recordsets;
         else
-            return null    
+            return null
     }
     catch (err) {
         return err.message;
@@ -45,12 +45,12 @@ async function cheetukaliList() {
     try {
         let pool = await poolPromise;
         let result = await pool.request()
-        .execute('WG_CheetukaliList');
-        
+            .execute('WG_CheetukaliList');
+
         if (result)
             return result.recordsets;
         else
-            return null    
+            return null
     }
     catch (err) {
         return err.message;
@@ -62,13 +62,13 @@ async function cheetukaliDetailsAll() {
     try {
         let pool = await poolPromise;
         let result = await pool.request()
-        //.output('amount',sql.Decimal(5,2))
-        .execute('WG_CheetukaliDetailsAll');
+            //.output('amount',sql.Decimal(5,2))
+            .execute('WG_CheetukaliDetailsAll');
         console.log(result);
         if (result)
             return result.recordsets;
         else
-            return null    
+            return null
     }
     catch (err) {
         return err.message;
@@ -80,13 +80,13 @@ async function cheetukaliDetails(wgId) {
     try {
         let pool = await poolPromise;
         let result = await pool.request()
-        .input('wg_ID',sql.Int,wgId)
-        .execute('WG_CheetukaliDetails');
-         
+            .input('wg_ID', sql.Int, wgId)
+            .execute('WG_CheetukaliDetails');
+
         if (result.recordset.length !== 0)
             return result.recordsets;
         else
-            return null    
+            return null
     }
     catch (err) {
         return err.message;
@@ -98,13 +98,13 @@ async function userList(type) {
     try {
         let pool = await poolPromise;
         let result = await pool.request()
-        .input('type',sql.VarChar,type)
-        .execute('WG_UserList');
-        
+            .input('type', sql.VarChar, type)
+            .execute('WG_UserList');
+
         if (result.recordset.length !== 0)
             return result.recordsets;
         else
-            return null     
+            return null
     }
     catch (err) {
         return err.message;
@@ -113,18 +113,18 @@ async function userList(type) {
 
 
 //Login
-async function WgLogin(UserID,Password) {
+async function WgLogin(UserID, Password) {
     try {
         let pool = await poolPromise;
         let result = await pool.request()
-        .input('UserID',sql.VarChar,UserID)
-        .input('Password',sql.VarChar,Password)
-        .execute('WG_Login');
+            .input('UserID', sql.VarChar, UserID)
+            .input('Password', sql.VarChar, Password)
+            .execute('WG_Login');
 
         if (result.recordset.length !== 0)
             return result.recordsets;
         else
-            return null     
+            return null
     }
     catch (err) {
         return err.message;
@@ -137,12 +137,12 @@ async function cheetukaliListGroupByMonth() {
     try {
         let pool = await poolPromise;
         let result = await pool.request()
-        .execute('WG_CheetukaliListMonthly_json');
+            .execute('WG_CheetukaliListMonthly_json');
 
         if (result.recordset.length !== 0)
             return result.recordset;
         else
-            return null     
+            return null
     }
     catch (err) {
         return err.message;
@@ -155,14 +155,14 @@ async function addEvent(bodyjsonstring) {
 
         let pool = await poolPromise;
         let result = await pool.request()
-        .input('json',sql.NVarChar(2048),bodyjsonstring)
-        .output('RowCount',sql.Int)
-        .execute('WG_AddEvent');
+            .input('json', sql.NVarChar(2048), bodyjsonstring)
+            .output('RowCount', sql.Int)
+            .execute('WG_AddEvent');
 
-        if ( result)
+        if (result)
             return result.output.RowCount;
         else
-            return null     
+            return null
     }
     catch (err) {
         return err.message;
@@ -175,14 +175,14 @@ async function addWinner(bodyjsonstring) {
 
         let pool = await poolPromise;
         let result = await pool.request()
-        .input('json',sql.NVarChar(2048),bodyjsonstring)
-        .output('RowCount',sql.Int)
-        .execute('WG_AddWinner');
+            .input('json', sql.NVarChar(2048), bodyjsonstring)
+            .output('RowCount', sql.Int)
+            .execute('WG_AddWinner');
 
-        if ( result)
+        if (result)
             return result.output.RowCount;
         else
-            return null     
+            return null
     }
     catch (err) {
         return err.message;
@@ -195,14 +195,14 @@ async function delWinner(bodyjsonstring) {
 
         let pool = await poolPromise;
         let result = await pool.request()
-        .input('json',sql.NVarChar(2048),bodyjsonstring)
-        .output('RowCount',sql.Int)
-        .execute('WG_DelWinner');
+            .input('json', sql.NVarChar(2048), bodyjsonstring)
+            .output('RowCount', sql.Int)
+            .execute('WG_DelWinner');
 
-        if ( result)
+        if (result)
             return result.output.RowCount;
         else
-            return null     
+            return null
     }
     catch (err) {
         return err.message;
@@ -215,14 +215,14 @@ async function delEvent(wgid) {
 
         let pool = await poolPromise;
         let result = await pool.request()
-        .input('wgid',sql.Int,wgid)
-        .output('RowCount',sql.Int)
-        .execute('WG_DelEvent');
+            .input('wgid', sql.Int, wgid)
+            .output('RowCount', sql.Int)
+            .execute('WG_DelEvent');
 
-        if ( result)
+        if (result)
             return result.output.RowCount;
         else
-            return null     
+            return null
     }
     catch (err) {
         return err.message;
